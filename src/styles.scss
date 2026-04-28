@@ -144,3 +144,61 @@ input, select, textarea,
   color: #64748b !important;
 }
 
+/* Search autocomplete overlay theme */
+.search-autocomplete-panel.mat-mdc-autocomplete-panel {
+  background-color: #ffffff !important;
+  border-radius: 16px !important;
+  margin-top: 8px !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12) !important;
+  overflow: hidden !important;
+  opacity: 1 !important;
+}
+
+.search-autocomplete-panel .mat-mdc-option {
+  color: #0f172a !important;
+  opacity: 1 !important;
+}
+
+.search-autocomplete-panel .mat-mdc-option.mdc-list-item--disabled {
+  color: #64748b !important;
+  opacity: 1 !important;
+  background-color: #ffffff !important;
+}
+
+.search-autocomplete-panel .empty-option {
+  color: #64748b !important;
+  background-color: #ffffff !important;
+}
+
+.dark .search-autocomplete-panel.mat-mdc-autocomplete-panel {
+  background-color: #171717 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45) !important;
+  opacity: 1 !important;
+}
+
+.dark .search-autocomplete-panel .mat-mdc-option {
+  color: #f3f4f6 !important;
+  opacity: 1 !important;
+}
+
+.dark .search-autocomplete-panel .mat-mdc-option.mdc-list-item--disabled {
+  color: #a3a3a3 !important;
+  opacity: 1 !important;
+  background-color: #171717 !important;
+}
+
+.dark .search-autocomplete-panel .empty-option {
+  color: #a3a3a3 !important;
+  background-color: #171717 !important;
+}
+
+.search-autocomplete-panel .mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+  background-color: rgba(249, 115, 22, 0.08) !important;
+}
+
+.dark .search-autocomplete-panel .mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+

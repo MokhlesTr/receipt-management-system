@@ -1,59 +1,65 @@
-# RecipeManager
+# Recipe Manager
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.8.
+Recipe Manager is a modern Angular application for browsing, filtering, creating, editing, and deleting recipes and categories. It is built with Angular 21, TypeScript, Tailwind CSS, Angular Material, RxJS, and SweetAlert2.
+
+## What this app uses
+
+- Angular standalone components
+- Lazy-loaded feature routes
+- Reactive forms
+- Angular Material UI components
+- Tailwind CSS with class-based dark mode
+- RxJS for search, filtering, and API flow
+- Axios-based API service wrapper
+- SweetAlert2 for confirmations and alerts
+
+## Main features
+
+- Recipe list with search and filters
+- Recipe details and recipe form pages
+- Category list and category form pages
+- Dark and light mode toggle
+- Responsive navigation and layout
+- Loading states and empty states
+- Image upload support
+
+## Project structure
+
+- `src/app/core` - services, models, and config
+- `src/app/features` - lazy-loaded recipes and categories features
+- `src/app/shared` - reusable UI components such as the navbar and spinner
+- `src/styles.scss` - global styling and theme overrides
 
 ## Development server
 
-To start a local development server, run:
+Run the app locally with:
 
 ```bash
-ng serve
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:8888/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Open:
 
 ```bash
-ng generate component component-name
+http://localhost:4200/
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The app reloads automatically when source files change.
+
+## Build
 
 ```bash
-ng generate --help
+npm run build
 ```
 
-## Building
-
-To build the project run:
+## Tests
 
 ```bash
-ng build
+npm test
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Notes
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Routes are lazy-loaded from `src/app/app.routes.ts`.
+- Tailwind dark mode is controlled with the `dark` class on the root HTML element.
+- API calls are centralized through `src/app/core/services/api.service.ts`.
