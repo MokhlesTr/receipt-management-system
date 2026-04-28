@@ -146,7 +146,7 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
             </div>
 
             <div *ngIf="recipeForm.get('image')?.value && recipeForm.get('image')?.value !== ''" class="rounded-2xl overflow-hidden aspect-[21/9] bg-slate-100 dark:bg-neutral-900 relative shadow-inner">
-              <img [src]="recipeForm.get('image')?.value" class="w-full h-full object-cover">
+              <img [src]="getImageUrl(recipeForm.get('image')?.value)" class="w-full h-full object-cover">
             </div>
           </div>
         </div>
@@ -249,6 +249,14 @@ export class RecipeFormComponent implements OnInit {
     if (this.ingredients.length > 1) {
       this.ingredients.removeAt(index);
     }
+  }
+
+  getImageUrl(path: string): string {
+    // If it's a base64 string (preview), return it as is
+    if (path && path.startsWith('data:image')) {
+      return path;
+    }
+    return this.recipeService.getImageUrl(path);
   }
 
   onFileSelected(event: any) {

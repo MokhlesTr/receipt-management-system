@@ -47,7 +47,7 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
             </p>
             <div class="flex flex-wrap gap-4">
               <a routerLink="/recipes/new" class="px-6 py-3 bg-orange-600 hover:bg-orange-700 transition-colors rounded-full text-white font-semibold shadow-sm">Submit Recipe</a>
-              <a href="#explore" class="inline-flex items-center gap-2 px-6 py-3 border border-slate-300 dark:border-neutral-700 hover:bg-slate-100 dark:hover:bg-neutral-800 transition-colors rounded-full text-slate-900 dark:text-white font-semibold">Explore Now</a>
+              <button (click)="scrollToExplore()" class="inline-flex items-center gap-2 px-6 py-3 border border-slate-300 dark:border-neutral-700 hover:bg-slate-100 dark:hover:bg-neutral-800 transition-colors rounded-full text-slate-900 dark:text-white font-semibold">Explore Now</button>
             </div>
           </div>
         </div>
@@ -109,13 +109,13 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
     </section>
 
     <!-- Filters Section -->
-    <section id="explore" class="py-16 bg-slate-50 dark:bg-neutral-900 border-t border-b border-slate-200 dark:border-neutral-800">
+    <section id="explore" class="py-16 bg-slate-50 dark:bg-neutral-900 border-t border-b border-slate-200 dark:border-neutral-800 scroll-mt-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between mb-8">
           <h2 class="text-3xl font-bold font-display text-slate-900 dark:text-white">Explore All Recipes</h2>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white dark:bg-neutral-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-neutral-700">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-white dark:bg-neutral-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-white/20">
           <mat-form-field appearance="outline" class="w-full filter-field">
             <mat-label>Search recipes...</mat-label>
             <input matInput [formControl]="searchControl" placeholder="Ex. Pasta">
@@ -139,7 +139,7 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
           </mat-form-field>
         </div>
 
-        <div *ngIf="!isLoading && recipes.length === 0" class="text-center py-20">
+        <div *ngIf="!isLoading && filteredRecipes.length === 0" class="text-center py-20">
           <div class="w-24 h-24 bg-slate-100 dark:bg-neutral-800 rounded-full flex items-center justify-center mx-auto mb-6">
             <mat-icon class="text-5xl text-slate-400">restaurant_menu</mat-icon>
           </div>
@@ -148,8 +148,8 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
           <button mat-flat-button class="!bg-orange-600 !text-white !rounded-full !px-8 !py-6 font-bold text-lg" (click)="resetFilters()">Reset All Filters</button>
         </div>
 
-        <div *ngIf="!isLoading && recipes.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
-          <ng-container *ngFor="let recipe of recipes">
+        <div *ngIf="!isLoading && filteredRecipes.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+          <ng-container *ngFor="let recipe of filteredRecipes">
             <div *ngIf="recipe._id" class="bg-white dark:bg-neutral-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-slate-100 dark:border-neutral-700 group flex flex-col h-full" [routerLink]="['/recipes', recipe._id]">
             <div class="h-56 overflow-hidden relative">
               <img [src]="getRecipeImage(recipe)" [alt]="recipe.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -258,14 +258,25 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
       display: block;
     }
     ::ng-deep .filter-field .mat-mdc-form-field-subscript-wrapper {
-      display: none;
+      display: none; /* Keep hidden if we want a compact look, but ensure it doesn't break padding */
     }
     ::ng-deep .filter-field .mat-mdc-text-field-wrapper {
-      background-color: transparent !important;
-      padding: 0 4px !important;
+      background-color: rgba(0,0,0,0.02) !important;
+      padding: 0 12px !important;
+      border-radius: 12px !important;
+      transition: all 0.2s ease;
     }
-    ::ng-deep .filter-field.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline {
-      color: rgba(0,0,0,0.1);
+    .dark ::ng-deep .filter-field .mat-mdc-text-field-wrapper {
+      background-color: rgba(255,255,255,0.05) !important;
+    }
+    ::ng-deep .filter-field.mat-mdc-form-field-appearance-outline .mat-mdc-notched-outline {
+      color: rgba(0,0,0,0.1) !important;
+    }
+    .dark ::ng-deep .filter-field.mat-mdc-form-field-appearance-outline .mat-mdc-notched-outline {
+      color: rgba(255,255,255,0.1) !important;
+    }
+    ::ng-deep .filter-field.mat-mdc-form-field-focused .mat-mdc-notched-outline {
+      color: var(--primary-color) !important;
     }
   `]
 })
@@ -274,7 +285,8 @@ export class RecipeListComponent implements OnInit {
   private categoryService = inject(CategoryService);
   private cdr = inject(ChangeDetectorRef);
 
-  recipes: Recipe[] = [];
+  recipes: Recipe[] = []; // Top featured recipes (Hero)
+  filteredRecipes: Recipe[] = []; // Filtered recipes (Explore)
   categories: Category[] = [];
   isLoading = false;
 
@@ -305,6 +317,7 @@ export class RecipeListComponent implements OnInit {
       next: (data) => {
         console.log('Recipes loaded:', data);
         this.recipes = data || [];
+        this.filteredRecipes = [...this.recipes]; // Initialize filtered list with full set
         this.isLoading = false;
         this.cdr.detectChanges();
       },
@@ -331,7 +344,7 @@ export class RecipeListComponent implements OnInit {
       })
     ).subscribe({
       next: (data) => {
-        this.recipes = data || [];
+        this.filteredRecipes = data || []; // Update ONLY the explore section
         this.isLoading = false;
         this.cdr.detectChanges();
       },
@@ -350,7 +363,7 @@ export class RecipeListComponent implements OnInit {
     this.cdr.detectChanges();
     this.recipeService.filterRecipes(category, difficulty).subscribe({
       next: (data) => {
-        this.recipes = data || [];
+        this.filteredRecipes = data || []; // Update ONLY the explore section
         this.isLoading = false;
         this.cdr.detectChanges();
       },
@@ -368,10 +381,11 @@ export class RecipeListComponent implements OnInit {
     this.loadRecipes();
   }
 
+  scrollToExplore() {
+    document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
   getRecipeImage(recipe: Recipe): string {
-    if (!recipe.image || recipe.image === 'no-photo.jpg') {
-      return 'https://placehold.co/800x600?text=' + encodeURIComponent(recipe.name);
-    }
-    return recipe.image;
+    return this.recipeService.getImageUrl(recipe.image);
   }
 }

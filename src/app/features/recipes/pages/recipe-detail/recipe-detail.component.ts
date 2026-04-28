@@ -146,10 +146,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   getRecipeImage(): string {
-    if (!this.recipe?.image || this.recipe.image === 'no-photo.jpg') {
-      return 'https://placehold.co/800x600?text=Recipe+Image';
-    }
-    return this.recipe.image;
+    return this.recipeService.getImageUrl(this.recipe?.image);
   }
 
   deleteRecipe() {

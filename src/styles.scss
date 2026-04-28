@@ -9,53 +9,138 @@ $my-tertiary: mat.$yellow-palette;
 
 html {
   height: 100%;
-  @include mat.theme(
-    (
-      color: (
-        primary: $my-primary,
-        tertiary: $my-tertiary,
-      ),
-      typography: Roboto,
-      density: 0,
-    )
-  );
+  scroll-behavior: smooth;
 }
 
 :root {
-  --primary-color: #ff5722;
-  --primary-gradient: linear-gradient(135deg, #ff5722 0%, #f4511e 100%);
-  --secondary-color: #ff9100;
-  --accent-color: #ffd600;
-  --text-color: #1f2937;
-  --text-muted: #6b7280;
-  --bg-color: #f3f4f6;
-  --card-bg: rgba(255, 255, 255, 0.85);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.4);
-  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-  --border-radius-lg: 20px;
-  --border-radius-md: 12px;
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  
+  --primary-color: #f97316; /* Tailwind orange-500 */
+  --primary-hover: #ea580c; /* Tailwind orange-600 */
+  --bg-dark: #0a0a0a;
+  --bg-card-dark: #171717;
+  --border-dark: rgba(255, 255, 255, 0.15); /* Lighter, semi-transparent white border */
 }
 
 body { 
   margin: 0; 
-  font-family: 'Inter', sans-serif; 
-  background-color: var(--bg-color);
-  background-image: radial-gradient(at 0% 0%, hsla(28,100%,74%,0.15) 0px, transparent 50%),
-                    radial-gradient(at 100% 0%, hsla(189,100%,56%,0.15) 0px, transparent 50%);
-  background-attachment: fixed;
-  color: var(--text-color);
+  font-family: var(--font-main);
+  background-color: #f8fafc;
+  color: #0f172a;
   min-height: 100vh;
 }
 
+.dark body {
+  background-color: var(--bg-dark);
+  color: #f8fafc;
+}
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
-.text-primary { color: var(--primary-color) !important; }
-.bg-primary { background: var(--primary-gradient) !important; }
+/* Material Form Field Overrides for Premium Look */
+.mat-mdc-form-field {
+  font-family: var(--font-main) !important;
+}
 
-/* Removed manual grid classes, Bootstrap will handle it */
-.text-muted { color: var(--text-muted) !important; }
+.dark .mat-mdc-form-field-wrapper {
+  color: #e5e5e5;
+}
+
+.dark .mat-mdc-text-field-wrapper {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.dark .mat-mdc-form-field-label {
+  color: #a3a3a3 !important;
+}
+
+.dark .mat-mdc-form-field-focus-overlay {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+.dark .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+.dark .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: var(--border-dark) !important;
+}
+
+.dark .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,
+.dark .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,
+.dark .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: var(--primary-color) !important;
+}
+
+.dark .mat-mdc-select-value,
+.dark .mat-mdc-input-element {
+  color: #ffffff !important;
+}
+
+.dark .mat-mdc-select-arrow {
+  color: #a3a3a3 !important;
+}
+
+.dark .mat-mdc-form-field-type-mat-select .mat-mdc-form-field-label {
+  color: #a3a3a3 !important;
+}
+
+/* Global Overlay Panel Fixes (for Dropdowns) */
+.mat-mdc-select-panel {
+  background-color: #ffffff !important; /* Light mode default */
+}
+
+.mat-mdc-option {
+  color: #1f2937 !important; /* Light mode text */
+}
+
+.dark .mat-mdc-select-panel {
+  background-color: #1f1f1f !important; /* Dark mode background */
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .mat-mdc-option {
+  color: #f3f4f6 !important; /* Dark mode text */
+}
+
+.dark .mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) {
+  background-color: rgba(249, 115, 22, 0.2) !important;
+}
+
+.dark .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after {
+  color: #f97316 !important;
+}
+
+/* Fix for invisible text in dark mode inputs */
+.dark input, 
+.dark select, 
+.dark textarea,
+.dark .mat-mdc-select-value-text,
+.dark .mat-mdc-input-element {
+  color: #ffffff !important;
+}
+
+/* Light mode defaults (ensure visibility) */
+input, select, textarea,
+.mat-mdc-select-value-text,
+.mat-mdc-input-element {
+  color: #0f172a !important;
+}
+
+.dark .mat-mdc-form-field-label,
+.dark .mat-mdc-select-placeholder {
+  color: #a3a3a3 !important;
+}
+
+.mat-mdc-form-field-label,
+.mat-mdc-select-placeholder {
+  color: #64748b !important;
+}
+

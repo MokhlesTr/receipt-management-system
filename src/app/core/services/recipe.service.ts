@@ -74,4 +74,15 @@ export class RecipeService {
       })
     );
   }
+
+  getImageUrl(imagePath?: string): string {
+    if (!imagePath || imagePath === 'no-photo.jpg') {
+      return 'https://placehold.co/800x600?text=Recipe';
+    }
+    if (imagePath.startsWith('http')) {
+      return imagePath;
+    }
+    const origin = CONFIG.apiUrl.replace('/api', '');
+    return origin + imagePath;
+  }
 }
