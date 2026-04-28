@@ -1,0 +1,10 @@
+# Force GitHub to detect Angular languages
+*.ts linguist-detectable=true
+*.html linguist-detectable=true
+*.scss linguist-detectable=true
+
+# Exclude dependencies and build artifacts from stats
+node_modules/* linguist-vendored
+dist/* linguist-vendored
+.angular/* linguist-vendored
+package-lock.json linguist-generated
