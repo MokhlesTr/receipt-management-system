@@ -6,59 +6,8 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, RouterLink, NavbarComponent],
-  template: `
-    <div class="app-container font-sans bg-slate-50 dark:bg-neutral-900 min-h-screen flex flex-col">
-      <app-navbar></app-navbar>
-
-      <main class="content flex-grow">
-        <router-outlet></router-outlet>
-      </main>
-
-      <footer
-        id="_footer_logo_members_v6_001"
-        class="bg-white dark:bg-neutral-950 mt-auto border-t border-slate-200 dark:border-neutral-800"
-      >
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="py-12 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-4">
-              <span class="text-2xl font-bold text-orange-600 dark:text-orange-400 font-display"
-                >Recipe<span class="text-slate-900 dark:text-white">Manager</span></span
-              >
-              <p
-                class="text-slate-500 dark:text-neutral-400 text-sm ml-4 border-l border-slate-300 dark:border-neutral-700 pl-4"
-              >
-                Premium Culinary Experience.
-              </p>
-            </div>
-            <div class="flex gap-6 text-sm">
-              <a
-                routerLink="/recipes"
-                class="text-slate-500 hover:text-orange-600 transition-colors font-medium"
-                >Recipes</a
-              >
-              <a
-                routerLink="/categories"
-                class="text-slate-500 hover:text-orange-600 transition-colors font-medium"
-                >Categories</a
-              >
-              <a href="#" class="text-slate-500 hover:text-orange-600 transition-colors font-medium"
-                >Privacy Policy</a
-              >
-            </div>
-          </div>
-          <div class="py-6 flex justify-between items-center text-sm text-slate-500">
-            <p>© 2026 Recipe Manager. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-    </div>
-  `,
-  styles: [
-    `
-      :host {
-        display: block;
-      }
-    `,
-  ],
+  templateUrl: './app.html',
+  styleUrl: './app.scss',
 })
 export class App {}
+

@@ -1,0 +1,23 @@
+<mat-card class="recipe-card h-100">
+  <img mat-card-image [src]="getRecipeImage()" [alt]="recipe.name" class="recipe-image">
+  <mat-card-header>
+    <mat-card-title>{{ recipe.name }}</mat-card-title>
+    <mat-card-subtitle>{{ getCategoryName() }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="recipe-info">
+      <span><mat-icon inline>schedule</mat-icon> {{ recipe.preparationTime }} min</span>
+      <span [class]="'difficulty ' + recipe.difficulty.toLowerCase()">{{ recipe.difficulty }}</span>
+    </div>
+    <p class="description">{{ recipe.description | slice:0:100 }}{{ recipe.description.length > 100 ? '...' : '' }}</p>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button color="primary" [routerLink]="['/recipes', recipe._id]">VIEW</button>
+    <button mat-icon-button color="accent" [routerLink]="['/recipes/edit', recipe._id]" title="Edit">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="onDelete()" title="Delete">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

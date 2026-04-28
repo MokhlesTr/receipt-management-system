@@ -1,0 +1,30 @@
+:host {
+  display: block;
+}
+
+::ng-deep .filter-field .mat-mdc-form-field-subscript-wrapper {
+  display: none; /* Keep hidden if we want a compact look, but ensure it doesn't break padding */
+}
+
+::ng-deep .filter-field .mat-mdc-text-field-wrapper {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+  padding: 0 12px !important;
+  border-radius: 12px !important;
+  transition: all 0.2s ease;
+}
+
+.dark ::ng-deep .filter-field .mat-mdc-text-field-wrapper {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+::ng-deep .filter-field.mat-mdc-form-field-appearance-outline .mat-mdc-notched-outline {
+  color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.dark ::ng-deep .filter-field.mat-mdc-form-field-appearance-outline .mat-mdc-notched-outline {
+  color: rgba(255, 255, 255, 0.1) !important;
+}
+
+::ng-deep .filter-field.mat-mdc-form-field-focused .mat-mdc-notched-outline {
+  color: var(--primary-color) !important;
+}
