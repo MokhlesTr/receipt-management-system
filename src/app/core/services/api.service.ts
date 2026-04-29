@@ -9,7 +9,7 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// Response interceptor for professional error handling
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {

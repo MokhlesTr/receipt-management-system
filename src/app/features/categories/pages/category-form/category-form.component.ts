@@ -65,7 +65,7 @@ export class CategoryFormComponent implements OnInit {
         name: category.name,
         description: category.description
       });
-      this.cdr.detectChanges(); // Prévenir NG0100
+      this.cdr.detectChanges();
     });
   }
 
@@ -73,7 +73,7 @@ export class CategoryFormComponent implements OnInit {
     if (this.categoryForm.invalid) return;
 
     this.isSubmitting = true;
-    this.cdr.detectChanges(); // Prévenir NG0100
+    this.cdr.detectChanges();
     
     const categoryData = this.categoryForm.value;
 

@@ -115,7 +115,7 @@ export class RecipeFormComponent implements OnInit {
   }
 
   getImageUrl(path: string): string {
-    // If it's a base64 string (preview), return it as is
+
     if (path && path.startsWith('data:image')) {
       return path;
     }
@@ -128,7 +128,7 @@ export class RecipeFormComponent implements OnInit {
       this.selectedFile = file;
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        // Set the base64 preview, but don't save this to DB, we will replace it with the uploaded URL before saving
+
         this.recipeForm.patchValue({ image: e.target.result });
       };
       reader.readAsDataURL(file);

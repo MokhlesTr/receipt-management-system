@@ -2,6 +2,14 @@
 
 Recipe Manager is a modern Angular application for browsing, filtering, creating, editing, and deleting recipes and categories. It is built with Angular 21, TypeScript, Tailwind CSS, Angular Material, RxJS, and SweetAlert2.
 
+## Preview
+
+<div align="center">
+  <img src="public/bg1.png" alt="Recipe Manager Preview 1" width="400" />
+  <img src="public/bg2.png" alt="Recipe Manager Preview 2" width="400" />
+</div>
+
+
 ## What this app uses
 
 - Angular standalone components

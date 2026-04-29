@@ -68,7 +68,7 @@ export class RecipeService {
       headers: { 'Content-Type': 'multipart/form-data' }
     })).pipe(
       map(res => {
-        // Because the URL returns as /uploads/filename, prepend the API origin
+
         const origin = CONFIG.apiUrl.replace('/api', '');
         return origin + res.data.url;
       })

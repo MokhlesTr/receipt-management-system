@@ -16,11 +16,11 @@ html {
   --font-main: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Outfit', sans-serif;
   
-  --primary-color: #f97316; /* Tailwind orange-500 */
-  --primary-hover: #ea580c; /* Tailwind orange-600 */
+  --primary-color: #f97316; 
+  --primary-hover: #ea580c; 
   --bg-dark: #0a0a0a;
   --bg-card-dark: #171717;
-  --border-dark: rgba(255, 255, 255, 0.15); /* Lighter, semi-transparent white border */
+  --border-dark: rgba(255, 255, 255, 0.15); 
 }
 
 body { 
@@ -42,7 +42,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
-/* Material Form Field Overrides for Premium Look */
+
 .mat-mdc-form-field {
   font-family: var(--font-main) !important;
 }
@@ -88,22 +88,22 @@ h1, h2, h3, h4, h5, h6 {
   color: #a3a3a3 !important;
 }
 
-/* Global Overlay Panel Fixes (for Dropdowns) */
+
 .mat-mdc-select-panel {
-  background-color: #ffffff !important; /* Light mode default */
+  background-color: #ffffff !important; 
 }
 
 .mat-mdc-option {
-  color: #1f2937 !important; /* Light mode text */
+  color: #1f2937 !important; 
 }
 
 .dark .mat-mdc-select-panel {
-  background-color: #1f1f1f !important; /* Dark mode background */
+  background-color: #1f1f1f !important; 
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .dark .mat-mdc-option {
-  color: #f3f4f6 !important; /* Dark mode text */
+  color: #f3f4f6 !important; 
 }
 
 .dark .mat-mdc-option:hover:not(.mdc-list-item--disabled) {
@@ -118,7 +118,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #f97316 !important;
 }
 
-/* Fix for invisible text in dark mode inputs */
+
 .dark input, 
 .dark select, 
 .dark textarea,
@@ -127,7 +127,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #ffffff !important;
 }
 
-/* Light mode defaults (ensure visibility) */
+
 input, select, textarea,
 .mat-mdc-select-value-text,
 .mat-mdc-input-element {
@@ -144,7 +144,7 @@ input, select, textarea,
   color: #64748b !important;
 }
 
-/* Search autocomplete overlay theme */
+
 .search-autocomplete-panel.mat-mdc-autocomplete-panel {
   background-color: #ffffff !important;
   border-radius: 16px !important;

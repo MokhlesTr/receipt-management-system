@@ -28,7 +28,7 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
     MatSelectModule,
     MatButtonModule,
     MatIconModule,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
   ],
   templateUrl: './recipe-list.component.html',
   styleUrl: './recipe-list.component.scss',
@@ -38,8 +38,8 @@ export class RecipeListComponent implements OnInit {
   private categoryService = inject(CategoryService);
   private cdr = inject(ChangeDetectorRef);
 
-  recipes: Recipe[] = []; // Top featured recipes (Hero)
-  filteredRecipes: Recipe[] = []; // Filtered recipes (Explore)
+  recipes: Recipe[] = [];
+  filteredRecipes: Recipe[] = [];
   categories: Category[] = [];
   isLoading = false;
 
@@ -55,7 +55,7 @@ export class RecipeListComponent implements OnInit {
   }
 
   loadCategories() {
-    this.categoryService.getAllCategories().subscribe(data => {
+    this.categoryService.getAllCategories().subscribe((data) => {
       console.log('Categories loaded:', data);
       this.categories = data;
       this.cdr.detectChanges();
@@ -70,7 +70,7 @@ export class RecipeListComponent implements OnInit {
       next: (data) => {
         console.log('Recipes loaded:', data);
         this.recipes = data || [];
-        this.filteredRecipes = [...this.recipes]; // Initialize filtered list with full set
+        this.filteredRecipes = [...this.recipes];
         this.isLoading = false;
         this.cdr.detectChanges();
       },
@@ -78,34 +78,36 @@ export class RecipeListComponent implements OnInit {
         console.error('Error loading recipes:', err);
         this.isLoading = false;
         this.cdr.detectChanges();
-      }
+      },
     });
   }
 
   setupSearch() {
-    this.searchControl.valueChanges.pipe(
-      debounceTime(400),
-      distinctUntilChanged(),
-      switchMap(query => {
-        this.isLoading = true;
-        this.cdr.detectChanges();
-        if (query) {
-          return this.recipeService.searchRecipes(query);
-        } else {
-          return this.recipeService.getAllRecipes();
-        }
-      })
-    ).subscribe({
-      next: (data) => {
-        this.filteredRecipes = data || []; // Update ONLY the explore section
-        this.isLoading = false;
-        this.cdr.detectChanges();
-      },
-      error: () => {
-        this.isLoading = false;
-        this.cdr.detectChanges();
-      }
-    });
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(400),
+        distinctUntilChanged(),
+        switchMap((query) => {
+          this.isLoading = true;
+          this.cdr.detectChanges();
+          if (query) {
+            return this.recipeService.searchRecipes(query);
+          } else {
+            return this.recipeService.getAllRecipes();
+          }
+        }),
+      )
+      .subscribe({
+        next: (data) => {
+          this.filteredRecipes = data || [];
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        },
+        error: () => {
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        },
+      });
   }
 
   applyFilters() {
@@ -116,14 +118,14 @@ export class RecipeListComponent implements OnInit {
     this.cdr.detectChanges();
     this.recipeService.filterRecipes(category, difficulty).subscribe({
       next: (data) => {
-        this.filteredRecipes = data || []; // Update ONLY the explore section
+        this.filteredRecipes = data || [];
         this.isLoading = false;
         this.cdr.detectChanges();
       },
       error: () => {
         this.isLoading = false;
         this.cdr.detectChanges();
-      }
+      },
     });
   }
 
